@@ -1,5 +1,5 @@
 import express from "express";
-import {authController} from "../controller/authController.js";
+import {resgisterController} from "../controller/authController.js";
 
 // router Object
 
