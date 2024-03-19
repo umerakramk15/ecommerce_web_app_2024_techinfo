@@ -1,0 +1,106 @@
+import React, { useState } from "react";
+import Layout from "../../components/Layout/Layout";
+import  {toast}  from "react-hot-toast";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
+function Resgister() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const navigation = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API}/api/v1/auth/register`,
+        { name, email, password, phone, address }
+      );
+
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigation("/login")
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+  return (
+    <Layout>
+      <form onSubmit={handleSubmit}>
+        <div className="container pt-5">
+          <div className="mb-3">
+            <label htmlFor="exampleInputName" className="form-label">
+              Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="exampleInputName"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail" className="form-label">
+              Email Address
+            </label>
+            <input
+              value={email}
+              type="email"
+              className="form-control"
+              id="exampleInputEmail"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              Password
+            </label>
+            <input
+              value={password}
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputAddress" className="form-label">
+              Address
+            </label>
+            <input
+              value={address}
+              type="text"
+              className="form-control"
+              id="exampleInputAddress"
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPhone" className="form-label">
+              Phone
+            </label>
+            <input
+              value={phone}
+              type="text"
+              className="form-control"
+              id="exampleInputPhone"
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </form>
+    </Layout>
+  );
+}
+
+export default Resgister;

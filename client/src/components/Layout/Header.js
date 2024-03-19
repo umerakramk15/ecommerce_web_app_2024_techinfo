@@ -63,10 +63,10 @@ function Header() {
 
             <div className="text-end">
               <button type="button" className="btn btn-light text-dark me-2">
-                <NavLink to="/register">Login</NavLink>
+                <NavLink to="/login">Login</NavLink>
               </button>
-              <button type="button" className="btn btn-primary">
-                <NavLink to="/Signup">Sign-Up</NavLink>
+              <button type="button" className="btn btn-danger">
+                <NavLink to="/register">Register</NavLink>
               </button>
             </div>
           </div>

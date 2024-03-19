@@ -28,4 +28,3 @@ const Contact = () => {
 };
 
 export default Contact;
-<Y></Y>
