@@ -1,7 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../context/auth";
+import toast from "react-hot-toast";
 
 function Header() {
+  const [auth, setAuth] = useAuth();
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem('auth')
+    toast.success("Logout Successfully")
+  };
   return (
     <div>
       <header>
@@ -62,12 +74,30 @@ function Header() {
             </form>
 
             <div className="text-end">
-              <button type="button" className="btn btn-light text-dark me-2">
-                <NavLink to="/login">Login</NavLink>
-              </button>
-              <button type="button" className="btn btn-danger">
-                <NavLink to="/register">Register</NavLink>
-              </button>
+              {!auth.user ? (
+                <>
+                  <button
+                    type="button"
+                    className="btn btn-light text-dark me-2"
+                  >
+                    <NavLink to="/login">Login</NavLink>
+                  </button>
+                  <button type="button" className="btn btn-danger">
+                    <NavLink to="/register">Register</NavLink>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    className="btn btn-light text-dark me-2"
+                  >
+                    <NavLink to="/login" onClick={handleLogout}>
+                      logout
+                    </NavLink>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
