@@ -11,8 +11,8 @@ function Header() {
       user: null,
       token: "",
     });
-    localStorage.removeItem('auth')
-    toast.success("Logout Successfully")
+    localStorage.removeItem("auth");
+    toast.success("Logout Successfully");
   };
   return (
     <div>
@@ -88,14 +88,27 @@ function Header() {
                 </>
               ) : (
                 <>
-                  <button
-                    type="button"
-                    className="btn btn-light text-dark me-2"
+                  <NavLink
+                    className="nav-link dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    to="#"
+                    role="button"
+                    aria-expanded="false"
                   >
-                    <NavLink to="/login" onClick={handleLogout}>
-                      logout
-                    </NavLink>
-                  </button>
+                    {auth?.user?.name}
+                  </NavLink>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <NavLink className="dropdown-item" to="/dashboard">
+                        Dashboard
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink className="dropdown-item"  to="/login" onClick={handleLogout}>
+                        logout
+                      </NavLink>
+                    </li>
+                  </ul>
                 </>
               )}
             </div>

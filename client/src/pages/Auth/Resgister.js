@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import  {toast}  from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Resgister() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-  const navigation = useNavigate()
+  const [answer, setAnswer] = useState("");
+  const navigation = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_API}/api/v1/auth/register`,
-        { name, email, password, phone, address }
+        { name, email, password, phone, address, answer }
       );
 
       if (res.data.success) {
         toast.success(res.data.message);
-        navigation("/login")
+        navigation("/login");
       } else {
         toast.error(res.data.message);
       }
@@ -94,8 +95,22 @@ function Resgister() {
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
+
+          <div className="mb-3">
+            <label htmlFor="exampleInputAnswer" className="form-label">
+              Enter Your Favorite Food name and remember it.
+              {`if your forgot you password it will help you to recover you account`}
+            </label>
+            <input
+              value={answer}
+              type="text"
+              className="form-control"
+              id="exampleInputPhone"
+              onChange={(e) => setAnswer(e.target.value)}
+            />
+          </div>
           <button type="submit" className="btn btn-primary">
-            Submit
+            Register
           </button>
         </div>
       </form>

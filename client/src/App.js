@@ -7,6 +7,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Resgister from "./pages/Auth/Resgister";
 import Login from "./pages/Auth/Login";
 import Dashboard from "./pages/user/Dashboard";
+import ForgotPassword from "./pages/Auth/ForgotPassword"
 import PrivateRoute from "./components/Layout/Routes/Private";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/register" element={<Resgister />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="" element={<Dashboard />}></Route>
         </Route>
