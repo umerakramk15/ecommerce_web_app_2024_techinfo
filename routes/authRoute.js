@@ -4,7 +4,7 @@ import {
   loginController,
   forgotPasswordController,
 } from "../controller/authController.js";
-import { requiresSignIn } from "../middleware/authMiddleware.js";
+import { isAdmin, requiresSignIn } from "../middleware/authMiddleware.js";
 
 // router Object
 
@@ -18,16 +18,18 @@ router.post("/register", resgisterController);
 
 router.post("/login", loginController);
 
-
 //forgot password || POST
 
-router.post("/forgot-password",forgotPasswordController,(req,res)=>{
+router.post("/forgot-password", forgotPasswordController, (req, res) => {});
 
-})
-
-// protected Route
+// protected Route fro User
 
 router.get("/user-auth", requiresSignIn, (req, res) => {
+  res.status(200).send({ ok: true });
+});
+
+// protected Route for admin
+router.get("/admin-auth", requiresSignIn, isAdmin, (req, res) => {
   res.status(200).send({ ok: true });
 });
 

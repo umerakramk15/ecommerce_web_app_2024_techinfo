@@ -1,9 +1,9 @@
 import React from "react";
 import Layout from "../../components/Layout/Layout";
-import UserMenu from "../../components/Layout/UserMenu";
+import AdminMenu from "../../components/Layout/AdminMenu";
 import { useAuth } from "../../context/auth";
 
-function Dashboard() {
+function AdminDashboard() {
   const [auth, setAuth] = useAuth();
   return (
     <Layout>
@@ -11,13 +11,14 @@ function Dashboard() {
         <div className="row">
           <div className="col-md-3">
             {" "}
-            <UserMenu />
+            <AdminMenu />
           </div>
           <div className="col-md-9">
             <div className="card w-75 p-3">
-              <h1>Name : {auth?.user?.name}</h1>
-              <h1>Eamil :{auth?.user?.email}</h1>
-              <h1>Phone : {auth?.user?.phone}</h1>
+              <h1>Admin Name : {auth?.user?.name}</h1>
+              <h1>Admin Email : {auth?.user?.email}</h1>
+              <h1>Admin Contact : {auth?.user?.phone}</h1>
+              
             </div>
           </div>
         </div>
@@ -26,4 +27,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default AdminDashboard;
