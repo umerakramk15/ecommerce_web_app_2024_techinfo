@@ -16,6 +16,7 @@ import CreateProduct from "./pages/Admin/CreateProduct";
 import Users from "./pages/Admin/Users";
 import Profile from "./pages/user/Profile";
 import Orders from "./pages/user/Orders";
+import Products from "./pages/Admin/Products";
 function App() {
   return (
     <>
@@ -43,6 +44,7 @@ function App() {
             element={<CreateProduct />}
           ></Route>
           <Route path="admin/users" element={<Users />}></Route>
+          <Route path="admin/products" element={<Products />}></Route>
         </Route>
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
