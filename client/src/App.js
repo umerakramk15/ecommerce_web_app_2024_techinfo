@@ -13,6 +13,7 @@ import AdminPrivate from "./components/Layout/Routes/AdminPrivate";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import CreateCategory from "./pages/Admin/CreateCategory";
 import CreateProduct from "./pages/Admin/CreateProduct";
+import UpdateProduct from "./pages/Admin/UpdateProduct";
 import Users from "./pages/Admin/Users";
 import Profile from "./pages/user/Profile";
 import Orders from "./pages/user/Orders";
@@ -45,6 +46,10 @@ function App() {
           ></Route>
           <Route path="admin/users" element={<Users />}></Route>
           <Route path="admin/products" element={<Products />}></Route>
+          <Route
+            path="admin/product/:slug"
+            element={<UpdateProduct />}
+          ></Route>
         </Route>
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
