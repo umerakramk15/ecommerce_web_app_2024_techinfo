@@ -39,41 +39,60 @@ function Login() {
   };
   return (
     <Layout>
-      <form onSubmit={handleSubmit}>
-        <div className="container pt-5">
-          <div className="mb-3">
-            <label htmlFor="exampleInputEmail" className="form-label">
-              Email Address
-            </label>
-            <input
-              value={email}
-              type="email"
-              className="form-control"
-              id="exampleInputEmail"
-              onChange={(e) => setEmail(e.target.value)}
+      <div className="overflow-hidden">
+        <div className="row d-flex flex-row align-items-center justify-content-center">
+          <div className=" col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <img
+              src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D"
+              style={{ width: "100%" }}
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
-            </label>
-            <input
-              value={password}
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+          <div className="col-md-6 d-flex flex-column align-items-center">
+            <h1>Log in to Exclusive</h1>
+            <h6>Enter your details below</h6>
+            <form onSubmit={handleSubmit}>
+              <div className="container pt-5">
+                <div className="mb-2">
+                  <label htmlFor="exampleInputEmail" className="form-label">
+                    Email Address
+                  </label>
+                  <input
+                    value={email}
+                    type="email"
+                    className="form-control"
+                    id="exampleInputEmail"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="mb-2">
+                  <label htmlFor="exampleInputPassword1" className="form-label">
+                    Password
+                  </label>
+                  <input
+                    value={password}
+                    type="password"
+                    className="form-control"
+                    id="exampleInputPassword1"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
 
-          <button type="submit" className="btn btn-primary">
-            Login
-          </button>
-          <button className="btn text-danger p-4" onClick={()=>{navigation("/forgot-password")}}>
-            forgot password? Click here!
-          </button>
+                <button type="submit" className="btn btn-danger px-4">
+                  Login
+                </button>
+                <button
+                  className="btn text-danger p-4"
+                  onClick={() => {
+                    navigation("/forgot-password");
+                  }}
+                >
+                  forgot password? Click here!
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
+      </div>
     </Layout>
   );
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useFetcher, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
+
 function ProductDetails() {
   const navigate = useNavigate();
   const [product, setProduct] = useState();
@@ -40,7 +41,8 @@ function ProductDetails() {
 
   useEffect(() => {
     if (params?.slug) getProduct();
-  }, [params.slug, getProduct]);
+    
+  }, [params?.slug]);
 
   return (
     <Layout>

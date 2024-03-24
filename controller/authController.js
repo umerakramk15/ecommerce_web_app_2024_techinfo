@@ -183,3 +183,43 @@ export const forgotPasswordController = async (req, res) => {
     });
   }
 };
+
+// export update profie
+
+export const updateProfileController = async (req, res) => {
+  try {
+    const { name, email, address, phone, password } = req.body;
+
+    const user = await userModel.findById(req.user._id);
+    if (password && password.length < 6) {
+      return res.json({ error: "Password is Required and 6 Character long" });
+    }
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const updatedUser = await userModel.findByIdAndUpdate(
+      req.user._id,
+      {
+        name: name || user.name,
+        password: hashedPassword || user.password,
+        address: address || address.password,
+        phone: phone || phone.password,
+      },
+      { new: true }
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Profile Updated",
+      updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in Update Profile",
+      error,
+    });
+  }
+};

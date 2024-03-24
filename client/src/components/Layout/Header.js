@@ -6,6 +6,7 @@ import SearchInput from "./Form/SearchInput";
 import useCategory from "../../hooks/useCategory";
 import { LuBaggageClaim } from "react-icons/lu";
 import { useCart } from "../../context/cart";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 function Header() {
   const [cart, setCart] = useCart();
@@ -22,8 +23,8 @@ function Header() {
   };
   return (
     <div>
-      <header>
-        <div className="px-3 py-2 text-bg-dark border-bottom">
+      <header style={{ padding: "20px 0px" }}>
+        <div className="px-3 py-2 text-bg-white border-bottom">
           <div className="container">
             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
               <NavLink
@@ -31,34 +32,47 @@ function Header() {
                 className="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"
               >
                 <div>
-                  <h1>LOGO</h1>
+                  <h1
+                    style={{
+                      fontSize: "30px",
+                      fontWeight: "bolder",
+                      color: "black",
+                    }}
+                  >
+                    Exclusive
+                  </h1>
                 </div>
               </NavLink>
 
-              <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                <SearchInput />
+              <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small ul-design">
                 <li>
                   <NavLink to="/" className="nav-link text-secondary">
                     Home
                   </NavLink>
                 </li>
-                <li className="nav-item dropdown">
+                <li className="nav-item dropdown" style={{ color: "gray" }}>
                   <Link
                     className="nav-link dropdown-toggle"
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
+                    style={{ color: "gray" }}
                   >
                     Category
                   </Link>
                   <ul className="dropdown-menu">
-                    <Link className="dropdown-item" to={`/categories`}>
+                    <Link
+                      className="dropdown-item"
+                      to={`/categories`}
+                      style={{ color: "gray" }}
+                    >
                       All Categories
                     </Link>
                     {categories.map((c) => (
                       <>
                         <li>
                           <Link
+                            style={{ color: "gray" }}
                             className="dropdown-item"
                             to={`/category/${c.slug}`}
                           >
@@ -70,31 +84,44 @@ function Header() {
                     <li></li>
                   </ul>
                 </li>
-
-                <li>
-                  <NavLink to="/about" className="nav-link text-white">
+                <li style={{ color: "gray" }}>
+                  <NavLink
+                    to="/about"
+                    style={{ color: "gray" }}
+                    className="nav-link"
+                  >
                     About
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/contact" className="nav-link text-white">
+                  <NavLink
+                    to="/contact"
+                    className="nav-link "
+                    style={{ color: "gray" }}
+                  >
                     Contact
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/privacy" className="nav-link text-white">
+                  <NavLink
+                    to="/privacy "
+                    className="nav-link"
+                    style={{ color: "gray" }}
+                  >
                     Privacy Policey
                   </NavLink>
                 </li>
+                <SearchInput />
                 <li>
-                  <NavLink to="/cart" className="nav-link text-white">
+                  <NavLink to="/cart" className="nav-link">
                     <LuBaggageClaim
-                      style={{ fontSize: "22px" }}
+                      style={{ fontSize: "25px", color: "gray" }}
                       className="fa"
                     />
                     <span
                       style={{
                         backgroundColor: "red",
+                        color: "white",
                         borderRadius: "50%",
                         padding: "3px 8px",
                         position: "absolute",
@@ -106,71 +133,72 @@ function Header() {
                     </span>
                   </NavLink>
                 </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="px-3 py-2 border-bottom mb-3">
-          <div className="container d-flex flex-wrap justify-content-center">
-            <form
-              className="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto"
-              role="search"
-            >
-              <input
-                type="search"
-                className="form-control"
-                placeholder="Search..."
-                aria-label="Search"
-              />
-            </form>
 
-            <div className="text-end">
-              {!auth.user ? (
-                <>
-                  <button
-                    type="button"
-                    className="btn btn-light text-dark me-2"
-                  >
-                    <NavLink to="/login">Login</NavLink>
-                  </button>
-                  <button type="button" className="btn btn-danger">
-                    <NavLink to="/register">Register</NavLink>
-                  </button>
-                </>
-              ) : (
-                <>
-                  <NavLink
-                    className="nav-link dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    to="#"
-                    role="button"
-                    aria-expanded="false"
-                  >
-                    {auth?.user?.name}
-                  </NavLink>
-                  <ul className="dropdown-menu">
-                    <li>
-                      <NavLink
-                        className="dropdown-item"
-                        to={`/dashboard/${
-                          auth?.user?.role === 1 ? "admin" : "user"
-                        }`}
+                <div className="text-end">
+                  {!auth.user ? (
+                    <>
+                      <button
+                        type="button"
+                        className="btn btn-light text-dark me-2"
                       >
-                        Dashboard
-                      </NavLink>
-                    </li>
-                    <li>
+                        <NavLink
+                          to="/login"
+                          style={{
+                            color: "red",
+                            textDecoration: "none",
+                            padding: "0px 10px",
+                          }}
+                        >
+                          Login
+                        </NavLink>
+                      </button>
+                      <button type="button" className="btn btn-danger">
+                        <NavLink
+                          to="/register"
+                          style={{ color: "white", textDecoration: "none" }}
+                        >
+                          Register
+                        </NavLink>
+                      </button>
+                    </>
+                  ) : (
+                    <>
                       <NavLink
-                        className="dropdown-item"
-                        to="/login"
-                        onClick={handleLogout}
+                        className="nav-link dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        to="#"
+                        role="button"
+                        aria-expanded="false"
                       >
-                        logout
+                        <FaRegCircleUser
+                          style={{ fontSize: "25px", color: "red" }}
+                        />
                       </NavLink>
-                    </li>
-                  </ul>
-                </>
-              )}
+                      <ul className="dropdowny" >
+                        <li>
+                          <NavLink
+                            className="dropdown-item"
+                            to={`/dashboard/${
+                              auth?.user?.role === 1 ? "admin" : "user"
+                            }`}
+                          >
+                            Dashboard
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            className="dropdown-item"
+                            to="/login"
+                            onClick={handleLogout}
+                          >
+                            logout
+                          </NavLink>
+                        </li>
+                      </ul>
+                    </>
+                  )}
+                </div>
+              </ul>
             </div>
           </div>
         </div>

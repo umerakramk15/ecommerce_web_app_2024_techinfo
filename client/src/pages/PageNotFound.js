@@ -6,10 +6,20 @@ const Pagenotfound = () => {
   return (
     <Layout>
       <div className="pnf">
-        <h1 className="pnf-title">404</h1>
-        <h2 className="pnf-heading">Oops ! Page Not Found</h2>
-        <Link to="/" className="pnf-btn">
-          Go Back
+        <h1 className="pnf-title">404 Not Found</h1>
+        <p className="pnf-heading">
+          Your visited page not found. You may go home page.
+        </p>
+        <Link
+          to="/"
+          className="btn btn-outline-danger px-5 mt-5"
+          style={{
+            backgroundColor: "#f44336",
+            color: "white",
+            ":hover": { backgroundColor: "red" },
+          }}
+        >
+          Back to home
         </Link>
       </div>
     </Layout>
