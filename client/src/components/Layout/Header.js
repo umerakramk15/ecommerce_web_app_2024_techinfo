@@ -1,11 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import SearchInput from "./Form/SearchInput";
+import useCategory from "../../hooks/useCategory";
 
 function Header() {
   const [auth, setAuth] = useAuth();
+  const categories = useCategory();
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -31,12 +33,41 @@ function Header() {
               </NavLink>
 
               <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                <SearchInput/>
+                <SearchInput />
                 <li>
                   <NavLink to="/" className="nav-link text-secondary">
                     Home
                   </NavLink>
                 </li>
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Category
+                  </Link>
+                  <ul className="dropdown-menu">
+                    <Link className="dropdown-item" to={`/categories`}>
+                      All Categories
+                    </Link>
+                    {categories.map((c) => (
+                      <>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            to={`/category/${c.slug}`}
+                          >
+                            {c.name}
+                          </Link>
+                        </li>
+                      </>
+                    ))}
+                    <li></li>
+                  </ul>
+                </li>
+
                 <li>
                   <NavLink to="/about" className="nav-link text-white">
                     About
