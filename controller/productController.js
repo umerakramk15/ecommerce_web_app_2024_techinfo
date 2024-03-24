@@ -2,7 +2,6 @@ import slugify from "slugify";
 import productModel from "../models/productModel.js";
 import fs from "fs";
 
-
 export const createProductController = async (req, res) => {
   try {
     const { name, description, price, quantity, category, shipping } =
@@ -183,6 +182,79 @@ export const updateProductController = async (req, res) => {
       success: false,
       error,
       message: "Error in Update Product",
+    });
+  }
+};
+
+// filter product
+
+export const productFilter = async (req, res) => {
+  try {
+    const { checked, radio } = req.body;
+    let args = {};
+
+    if (checked.length > 0) args.category = checked;
+    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+
+    const products = await productModel.find(args);
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      error,
+      message: "Error in Filter Product",
+    });
+  }
+};
+
+// product count controller
+
+export const productCountController = async (req, res) => {
+  try {
+    const total = await productModel.find({}).estimatedDocumentCount();
+
+    res.status(200).send({
+      success: true,
+      total,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      message: "error in product count",
+      error,
+      success: false,
+    });
+  }
+};
+
+// product list
+
+export const productListController = async (req, res) => {
+  try {
+    const perPage = 6;
+    const page = req.params.page ? req.params.page : 1;
+
+    const products = await productModel
+      .find({})
+      .select("-photo")
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error in List Page",
+      error,
     });
   }
 };
