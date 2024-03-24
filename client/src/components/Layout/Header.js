@@ -4,8 +4,11 @@ import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import SearchInput from "./Form/SearchInput";
 import useCategory from "../../hooks/useCategory";
+import { LuBaggageClaim } from "react-icons/lu";
+import { useCart } from "../../context/cart";
 
 function Header() {
+  const [cart, setCart] = useCart();
   const [auth, setAuth] = useAuth();
   const categories = useCategory();
   const handleLogout = () => {
@@ -84,8 +87,23 @@ function Header() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/" className="nav-link text-white">
-                    Products
+                  <NavLink to="/cart" className="nav-link text-white">
+                    <LuBaggageClaim
+                      style={{ fontSize: "22px" }}
+                      className="fa"
+                    />
+                    <span
+                      style={{
+                        backgroundColor: "red",
+                        borderRadius: "50%",
+                        padding: "3px 8px",
+                        position: "absolute",
+                        top: "20px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      {cart.length}
+                    </span>
                   </NavLink>
                 </li>
               </ul>

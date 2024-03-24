@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout/Layout";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Layout/Prices";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -16,6 +16,7 @@ function Home() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [cart, setCart] = useCart();
 
   // getTotal
   const getTotal = async () => {
@@ -180,7 +181,17 @@ function Home() {
                       More Detail
                     </a>
 
-                    <a href="/product/cart" className="btn btn-primary m-3">
+                    <a
+                      className="btn btn-primary m-3"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
+                        toast.success(`${p.name} Added to Cart`);
+                      }}
+                    >
                       Add to cart
                     </a>
                   </div>
