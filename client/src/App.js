@@ -18,6 +18,8 @@ import Users from "./pages/Admin/Users";
 import Profile from "./pages/user/Profile";
 import Orders from "./pages/user/Orders";
 import Products from "./pages/Admin/Products";
+import Search from "./Search";
+import ProductDetails from "./pages/ProductDetails";
 function App() {
   return (
     <>
@@ -26,6 +28,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/register" element={<Resgister />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -46,10 +50,7 @@ function App() {
           ></Route>
           <Route path="admin/users" element={<Users />}></Route>
           <Route path="admin/products" element={<Products />}></Route>
-          <Route
-            path="admin/product/:slug"
-            element={<UpdateProduct />}
-          ></Route>
+          <Route path="admin/product/:slug" element={<UpdateProduct />}></Route>
         </Route>
         <Route path="/*" element={<PageNotFound />} />
       </Routes>

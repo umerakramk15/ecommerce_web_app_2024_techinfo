@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
+import SearchInput from "./Form/SearchInput";
 
 function Header() {
   const [auth, setAuth] = useAuth();
@@ -30,6 +31,7 @@ function Header() {
               </NavLink>
 
               <ul className="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                <SearchInput/>
                 <li>
                   <NavLink to="/" className="nav-link text-secondary">
                     Home
@@ -99,12 +101,21 @@ function Header() {
                   </NavLink>
                   <ul className="dropdown-menu">
                     <li>
-                      <NavLink className="dropdown-item" to={`/dashboard/${auth?.user?.role === 1 ? 'admin' : 'user'}`}>
+                      <NavLink
+                        className="dropdown-item"
+                        to={`/dashboard/${
+                          auth?.user?.role === 1 ? "admin" : "user"
+                        }`}
+                      >
                         Dashboard
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink className="dropdown-item"  to="/login" onClick={handleLogout}>
+                      <NavLink
+                        className="dropdown-item"
+                        to="/login"
+                        onClick={handleLogout}
+                      >
                         logout
                       </NavLink>
                     </li>

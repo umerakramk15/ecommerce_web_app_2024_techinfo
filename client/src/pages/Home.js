@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout/Layout";
-import { useAuth } from "../context/auth";
+
 import axios from "axios";
-import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Layout/Prices";
 
 function Home() {
-  const [auth, setAuth] = useAuth();
-
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -17,6 +15,7 @@ function Home() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   // getTotal
   const getTotal = async () => {
@@ -159,45 +158,34 @@ function Home() {
           <h1 className="text-center">All Products </h1>
           <div className="d-flex flex-wrap">
             {products.map((p) => (
-              <Link
-                to={`/dashboard/admin/product/${p.slug}`}
-                key={p._id}
-                className=" product-link"
-              >
-                <>
-                  <div className="card m-2" style={{ width: "18rem" }}>
-                    <img
-                      src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
-                      className="card-img-top"
-                      alt={p.name}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{p.name}</h5>
-                      <p className="card-text">
-                        {p.description.substring(0, 20)}
-                      </p>
-                      <p className="card-text">Rs : {p.quantity}</p>
-                      {auth.user.role === 1 ? (
-                        <>
-                          <a href="#" className="btn btn-primary">
-                            Update Product
-                          </a>
-                        </>
-                      ) : (
-                        <>
-                          <a href="#" className="btn btn-primary m-3">
-                            Add to Cart
-                          </a>
+              <>
+                <div className="card m-2" style={{ width: "18rem" }}>
+                  <img
+                    src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
+                    className="card-img-top"
+                    alt={p.name}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{p.name}</h5>
+                    <p className="card-text">
+                      {p.description.substring(0, 20)}...
+                    </p>
+                    <p className="card-text">Rs : {p.price}</p>
 
-                          <a href="#" className="btn btn-primary m-3">
-                            More Detail
-                          </a>
-                        </>
-                      )}
-                    </div>
+                    <a
+                      href="#"
+                      className="btn btn-primary"
+                      onClick={() => navigate(`/product/${p.slug}`)}
+                    >
+                      More Detail
+                    </a>
+
+                    <a href="/product/cart" className="btn btn-primary m-3">
+                      Add to cart
+                    </a>
                   </div>
-                </>
-              </Link>
+                </div>
+              </>
             ))}
           </div>
           <div className="m-2 p-3">
@@ -209,7 +197,7 @@ function Home() {
                   setPage(page + 1);
                 }}
               >
-                {loading ? "loading...." : "Load mOre"}
+                {loading ? "loading...." : "Load More"}
               </button>
             )}
           </div>
