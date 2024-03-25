@@ -2,6 +2,7 @@ import userModel from "../models/userModel.js";
 import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import orderModel from "../models/orderModel.js";
 
 // POST REGISTER
 export const resgisterController = async (req, res) => {
@@ -220,6 +221,71 @@ export const updateProfileController = async (req, res) => {
       success: false,
       message: "Error in Update Profile",
       error,
+    });
+  }
+};
+
+// order getting
+
+export const getOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({ buyer: req.user._id })
+      .populate("products", "-photo")
+      .populate("buyer", "name");
+
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error in order access for User auth",
+    });
+  }
+};
+
+// all orders for admin
+
+export const getAllOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({})
+      .populate("products", "-photo")
+      .populate("buyer", "name")
+      .sort({ createdAt: -1 });
+
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error to access all order for admin",
+    });
+  }
+};
+// setStatusOrdersController
+
+export const setStatusOrdersController = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const orders = await orderModel.findByIdAndUpdate(
+      orderId,
+      {
+        status,
+      },
+      { new: true }
+    );
+
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error to access all order for admin updaing status ",
     });
   }
 };
